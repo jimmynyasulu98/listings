@@ -2,11 +2,15 @@
 
 use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ListingController;
 
-Route::get('/', function () {
-    return view('listings' , ['listings' => Listing::all()]);
-});
+Route::get('/', [ListingController::class,'index'])->name('index');
+# Create Listing form
+Route::get('/listings/create', [ListingController::class,'create'])->name('create');
+# store listing
+Route::post('/listings', [ListingController::class,'store'])->name('store_listing');
 
-Route::get('/listings/{id}', function ($id) {
-    return view('listing' , ['listing' => Listing::find($id)]);
-});
+# Show Listing 
+Route::get('/listings/{listing}', [ListingController::class,'show'])->name('show');
+
+
