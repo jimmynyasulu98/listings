@@ -1,8 +1,11 @@
 
 @if(session()->has('message'))
 
-    <div class="fixed top-0 bg-Laravel text-white px-48 py-3 left-1 transform-translate-x-1/2">
+    <div x-data="{show:true}"  x-init="setTimeout(()=>show = false, 5000)" x-show="show"  
+        class="fixed top-0 left-1/2 transform-translate-x-1/2 bg-laravel text-white px-48 py-3">
+
         <p>{{session('message')}}</p>
+
     </div>
 
 @endif

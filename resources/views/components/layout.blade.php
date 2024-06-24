@@ -16,6 +16,8 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         @vite('resources/css/app.css')
+        @livewireStyles
+        
 
     </head>
     
@@ -25,17 +27,38 @@
                 <img class="w-24" src="{{asset('images/logo.png')}}" alt="" class="logo"/>
             </a>
             <ul class="flex space-x-6 mr-6 text-lg">
-                <li>
-                    <a href="register.html" class="hover:text-laravel"
-                        ><i class="fa-solid fa-user-plus"></i> Register</a
-                    >
-                </li>
-                <li>
-                    <a href="login.html" class="hover:text-laravel"
-                        ><i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        Login</a
-                    >
-                </li>
+                @auth
+                    <li>
+                    <span class="font-bold uppercase">
+                        {{auth()->user()->name}}
+                    </span>
+                    </li>
+                    <li>
+                        <a href="/listings/manage" class="hover:text-laravel">
+                            <i class="fa-solid fa-gear"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button type="submit" class="font-bold">
+                                Signout
+                            </button>
+                        </form>
+                    </li>
+                @else
+                    <li>
+                        <a href="/register" class="hover:text-laravel"
+                            ><i class="fa-solid fa-user-plus"></i> Register</a
+                        >
+                    </li>
+                    <li>
+                        <a href="/login" class="hover:text-laravel"
+                            ><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            Login</a
+                        >
+                    </li>
+                @endauth 
             </ul>
         </nav>
         <main>
@@ -50,5 +73,6 @@
         </footer>
 
         <x-flash-message/>
+        @livewireScripts
     </body>
 </html>
